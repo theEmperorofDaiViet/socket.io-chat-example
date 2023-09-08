@@ -52,3 +52,17 @@ body {
 #messages > li:nth-child(odd) { 
     background: #efefef; 
 }
+
+#messages > p.connection {
+    text-align: center;
+    background: #00FF00;
+    margin: 0 0 0 0;
+    border: 1px solid #333;
+}
+
+#messages > p.disconnection {
+    text-align: center;
+    background: #FF0000;
+    margin: 0 0 0 0;
+    border: 1px solid #333;
+}

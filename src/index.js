@@ -13,9 +13,11 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log("A user connected!");
+    console.log(socket.handshake.query.name + " connected!");
+    io.emit('connection notification', socket.handshake.query.name);
     socket.on('disconnect', () => {
-        console.log("User disconnected!");
+        console.log(socket.handshake.query.name + " disconnected!");
+        io.emit('disconnection notification', socket.handshake.query.name);
     });
     socket.on('chat message', (msg) => {
         io.emit('chat message', msg);

@@ -15,9 +15,15 @@
 
     <script src="../socket.io/socket.io.js"></script>
     <script>
-        var name = prompt("Enter your name: ");
+        while(!name || name == 'null'){
+            var name = prompt("Enter your name: ");
+        }
 
-        var socket = io();
+        var parameters = {
+            name: name
+        }
+
+        var socket = io({query: parameters});
 
         var messages = document.getElementById('messages');
         var form = document.getElementById('form');
@@ -31,6 +37,17 @@
             }
         });
 
+        socket.on('connection notification', function(name){
+            var item = document.createElement('p');
+            var user = document.createElement('b');
+            user.textContent = name;
+            item.appendChild(user);
+            item.appendChild(document.createTextNode(" joined the chat"));
+            item.className += " connection";
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
         socket.on('chat message', function(msg) {
             var item = document.createElement('li');
             var sender = document.createElement('b');
@@ -40,6 +57,17 @@
             item.appendChild(sender);
             item.appendChild(document.createTextNode(": "))
             item.appendChild(text);
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('disconnection notification', function(name){
+            var item = document.createElement('p');
+            var user = document.createElement('b');
+            user.textContent = name;
+            item.appendChild(user);
+            item.appendChild(document.createTextNode(" left the chat"));
+            item.className += " disconnection";
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
