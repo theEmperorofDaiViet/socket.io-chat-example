@@ -32,6 +32,16 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             if(input.value) {
+                var item = document.createElement('li');
+                var sender = document.createElement('b');
+                sender.textContent = name;
+                var text = document.createElement('text');
+                text.textContent = input.value;
+                item.appendChild(sender);
+                item.appendChild(document.createTextNode(": "))
+                item.appendChild(text);
+                messages.appendChild(item);
+                window.scrollTo(0, document.body.scrollHeight);
                 socket.emit('chat message', { name: name, text: input.value });
                 input.value = '';
             }
