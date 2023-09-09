@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
         io.emit('disconnection notification', socket.handshake.query.name);
     });
     socket.on('chat message', (msg) => {
-        io.emit('chat message', msg);
+        socket.broadcast.emit('chat message', msg);
     });
 });
 
