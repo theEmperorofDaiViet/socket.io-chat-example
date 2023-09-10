@@ -16,11 +16,18 @@ io.on('connection', (socket) => {
     console.log(socket.handshake.query.name + " connected!");
     io.emit('connection notification', socket.handshake.query.name);
     socket.on('disconnect', () => {
+        socket.broadcast.emit('finish typing', socket.handshake.query.name);
         console.log(socket.handshake.query.name + " disconnected!");
         io.emit('disconnection notification', socket.handshake.query.name);
     });
     socket.on('chat message', (msg) => {
         socket.broadcast.emit('chat message', msg);
+    });
+    socket.on('typing', () => {
+        socket.broadcast.emit('typing', socket.handshake.query.name);
+    });
+    socket.on('finish typing', () => {
+        socket.broadcast.emit('finish typing', socket.handshake.query.name);
     });
 });
 

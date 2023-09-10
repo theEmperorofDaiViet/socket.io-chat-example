@@ -29,6 +29,15 @@
         var form = document.getElementById('form');
         var input = document.getElementById('input');
 
+        var timeout;
+        input.addEventListener('keydown', function(){
+            socket.emit('typing');
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                socket.emit('finish typing');
+            }, 2000);
+        });
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             if(input.value) {
@@ -42,6 +51,7 @@
                 item.appendChild(text);
                 messages.appendChild(item);
                 window.scrollTo(0, document.body.scrollHeight);
+                socket.emit('finish typing');
                 socket.emit('chat message', { name: name, text: input.value });
                 input.value = '';
             }
@@ -57,6 +67,23 @@
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
         });
+
+        socket.on('typing', function(name) {
+            if(!document.getElementById(name)){
+                var item = document.createElement('li');
+                item.innerHTML = "<b>" + name + "</b>" + ": &nbsp;" + "<div class='dot'></div>" + "<div class='dot'></div>" + "<div class='dot'></div>";
+                item.setAttribute('id', name);
+                item.className += " typing";
+                messages.appendChild(item);
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        })
+
+        socket.on('finish typing', function(name){
+            var item = document.getElementById(name);
+            item.remove();
+            window.scrollTo(0, document.body.scrollHeight);
+        })
 
         socket.on('chat message', function(msg) {
             var item = document.createElement('li');
