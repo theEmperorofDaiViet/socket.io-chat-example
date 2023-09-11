@@ -66,8 +66,11 @@ Then open two or more browser windows for <i>http://localhost:3000/</i>, enter s
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # Key Features
-
-
+- Realtime chat.
+- Support for nicknames.
+- Broadcast a message to connected users when someone connects or disconnects.
+- Don’t send the same message to the user that sent it. Instead, append the message directly as soon as they press enter.
+- “{user} is typing” functionality.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
