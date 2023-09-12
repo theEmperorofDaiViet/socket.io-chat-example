@@ -75,8 +75,11 @@ Then open two or more browser windows for <i>http://localhost:3000/</i>, enter s
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 # Usage
+I use a conversation from Chapter 10 of the manga "<b><i>Bocchi the Rock!</i></b>" to illustrate how this chat application works:
 
-
+<p align="center">
+    <img src="public/images/examples/example.gif">
+</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
